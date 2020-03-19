@@ -12,7 +12,8 @@ The solution, we propose, is to create an open standard for interoperable, smart
   - decentralized storage so network participants will control the data they create
 
 
-This is not a typical whitepaper. We do not focus on *what* we are building because we are not sure yet. We think that great products and inventions come as the result of tinkering, not from an immutable plan that some genius created. So this paper is focused on *why* we are trying to create an open standard for online communities and *how* we may design it. In the scenario that nothing we create works or gains traction, we hope to at the very least spark a more informed conversation around online communities.
+This is not a typical whitepaper. We do not focus on *what* we are building because we are not sure yet. We think that great products and inventions come as the result of tinkering, not from an immutable plan that some genius created. So this paper is focused on *why* we are trying to create an open standard for online communities and *how* we may design it.
+  - main function of writing is to organize our thoughts, get feedback, and eventually publish this to hopefully spark a more informed conversation around online communities.
 
 ## Background
 
@@ -127,7 +128,7 @@ In many ways communities can be compared to businesses. When someone finds an op
 
 "You know the most information when you're doing something, not *before* you've done it." -Jason Fried and David Heinemeier Hansson, *Rework*
 
-Early stages we consider these *guesses* as to what may work, not necessarily a plan. We still consider it important to have a long term vision, but we just do not plan to be confined by it. We plan to reconsider everything as we build so our guesses can be considered strong opinions of what may work, but weakly held.[^5] Our fundmanetal goal is to create an open source standard for communities. It should be designed to be practical and limit rent-seeking. Here's some further specifications regarding our thoughts so far:
+Early stages we consider these *guesses* as to what may work, not necessarily a plan. We still consider it important to have a long term vision, but we just do not plan to be confined by it. We plan to reconsider everything as we build so our guesses are really just strong opinions of what may work, weakly held. Our fundmanetal goal is to create an open source standard for communities. It should be designed to be practical and limit rent-seeking. Here's some further specifications regarding our thoughts so far:
 
 1. Interoperable, personally owned data
   Data must be interoperable between communities and user controlled to reduce the friction of both leaving and joining communities. Therefore there should be a standard for how personal data is stored so that individuals do not need to alter how their data is stored to share it with different communities.
@@ -136,107 +137,71 @@ Early stages we consider these *guesses* as to what may work, not necessarily a 
   Governance must be auditable by the members of a community. Therefore community members need access to the governance history of a community. Further specifications on governance should be community specific because there is no one-size fits all model for community governance.
 
 3. Low technical barrier to creating and governing communities
-  - technical barrier to create and govern communities increases friction
-  - early stages a large technical barrier is inevitable but over time we hope to abstract it away so that anyone can easily create and govern communities.
+  Everyone should be able to create and govern communities, not just those with a technical background. At early stages a large technical barrier is inevitable but over time we hope to abstract it away so anyone can create and govern communities only by entering a few fields and clicking a button.
+
+  Communitites should ideally be easy to understand, too. There should be as little a technical barrier to understanding their fundamentals as possible. Therefore we hope to design communities to be as simple as possible.
 
 4. Flexibility
-  - overall standard should be minimal
-  - limited to only what is necessary so that communities are not confined by this standard
+  An open source standard for communities should allow for a wide range of community functions. Some communities will mirror traditional social media while of others may be groups of writers looking to monetize their content (See [Example](### Examples)). A standard should be flexible so that it can easily support different types of communities.
 
-[^5]: I think someone came up with something like this before me.
 
 ### Technical Stack
 
-- stack is dependent on the totally dependent on the functionality of the community but here's a general overview of what we think may work
+In many cases the technical stack will be totally dependent on the functionality of the community, but here's a general overview of what we think may work.
 
 1. Smart Contract Governance
-  - governance decisions happen on chain
-    - immutable, transaction fees -> costly to make governance decisions
+  Smart contracts will define community roles. They will be community specific, but here is an overview of the general positions we believe most communities will use: owner, administrator and creator. Creators can publish content within the community. Administrators can censor content and remove members who violate the community guidelines. Owners will have all the functionality of administrators, but also be able to edit the community guidelines.
 
-  - communities are payable
+  The community guidelines will define the roles within a community and expectations for each role. Among many other aspects of communities, the guidelines will outline what content is acceptable to publish, what actions may be grounds for removing someone, and how disputes will be resolved. The entire community guidelines will likely be too expensive to store on chain, but storing a hash of the guidelines should be sufficient. With just a hash members can be assured that the community guidelines have not been altered.
 
-  - smart contract is community specfic
+  Smart contracts may be the best option for governance because they provide immutable storage and are payable. We hope that payable communities will better allow content creators and curators to monetize their content (See [Monetization](### Monetization)).
 
-  smart contracts define community roles and who has each role
-      - basic community roles: administrators and creators
-          - communities should define other roles as needed
-          - different administrative roles (so people are accountable)
-          - potentially different tiers of creators
-            - rewarded for staying longer or for producing a lot of good content (that is, content people in the community like, not content that grabs attention)
-      - community guidelines
-          - expectations for administrators and creators
-          - dispute resolution
+  Eventually we will want to create smart contract templates so that communities can be created without coding experience. Ideally someone would be able to deploy a community smart contract by picking the community roles, entering a few fields, and then clicking a button to deploy the contract.
 
-  - eventually want smart contract templates so communities can be created by anyone without coding experience, ideally someone would be able to deploy a community specific smart contract by picking a predefined governance structure, entering a few fields, and then clicking a button that deploys it.
+  Initially we plan to build on Ethereum because it is the most mature smart contract platform. We are also interested in looking further into Algorand and Ava, but are open to other platforms as well.
 
-2. Storage
-  - 3Box: so people actually own their own data, so if they want to go to a new community, they can take their data from past communities with them
+2. Identity Layer (Refactor after doing a 3Box tutorial)
 
-  - standard for storing individual data
+  Individual data needs to be stored in individual storage. Everyone should control their own data, and by separating identities from communities, people can take their data initially posted to past communities, to new communities. It will be important to develop a standard for storing individual data so that it will be interoperable between communities.
+
+  Initially we plan to use 3Box because it is currently integrated with Ethereum and was designed to be blockchain agnostic.
 
 3. Front End
 
-  - create interoperable front ends for communities
+  Communities will eventurally use interoperable frontends. Users will be be able to switch between communities like they can view different ERC20 tokens in Metamask. They will search for the community, add it to their frontend, and then be able to load content from the community by selecting it.
 
-  - switching communities like finding an ERC20 token in Metamask, just type in the name of the token
-
-  - people able to access the content of a private community by connecting their wallet to the frontend
-
-  - expect community specific sites, but also want to create community independent sites
-    - community specific likely necessary to abstract away community-specific smart contract function calls
+  We expect many different types of frontends. Some frontends will mirror microblogging sites, some larger blogs, and others may need video or music players.
 
 
 ### Examples
 
-- freelance writers, instead of posting to their personal blog, they're able to create content for a writing community
-  - community stated by a high profile journalist who decided he had enough reach by himself that he no longer needed to work for a newspaper or magazine.
-  - he'd make more money starting his own community and have a say in how it's governed
-  - recruits other writers, some writers apply to join the community by sending him writing samples
+Online communities can mirror traditional social media, like twitter or instagram but with transparent governance. Identities will be able to create communities on specific topics, too. It's like reddit, but with transparent community governance, quality control, and where ad revenue can be split between community members (See [Pay to Post](#### 3. Pay to Post)).
 
-- video creators, like YouTubers or video game streamers all streaming to the same community. The community administrators create a rule that there is an advertisement at the beginning of each video and advertising funds get split up between members according to the smart contract
+But communities can also be much more than that. Online creators can create communities with quality standards so that they can better monetize their content.
 
-### A Community Lifecycle ^^^ combine these two sections
+Let's say that Alice is a blogger. She used to work for Big Newspaper Inc. and left because she feels she no longer needs to work there. She has a following now and wants to write what she wants to write, not what Big Newspaper wants. She has been able to make some money setting up her own blog where her fans can pay a small monthly fee and get benefits like early access to content and special content.
 
-- Bob is a freelance writer, wants to join a community of bloggers to increase his reach.
-  - community of writers was started by Charlie, a popular writer who already had a large following
-    - approved writers are able to post
+Then Alice decides to create her own online community. Initially it may just be another open source tool so that she can monetize her content. She sets up the community and then users can pay to support her by sending crypto to the community smart contract. The monetization models Alice can choose are flexible. She can make viewers can a small fee to access an individual pieces or create a subscription model.
 
-  - Bob submits an application to be part of the community, it's a writing sample and a his ethereum address
-  - Charlie likes Bobs writing and adds Bob to the community smart contract as an address capable of joining the community.
-  - once Bob has been approved, he's able to pay the smart contract the entrance fee to the community and he's in.
-  -
+Alice starts recruiting other writers to join her community because that way everyone can benefit from everyone else's fanbase. Alice now creates her community guidelines with the help of a few members she was able to recruit. She posts the guidelines in her community so everyone can see them and she puts a hash of the guidelines on chain. One of the initial members, Bob, loves the community and wants more responsibility. Alice appoints im to be an administrator.
 
-- pay to join a community, small fee to stop sybil identities, fee goes to Charlie because he's the only administrator. If there were more, the fee could be split between them.
-- able to post content, all content (can be) stored in your 3Box as well as the community server
-- start violating the community guidelines, guidelines say not to use offensive language and Bob uses offensive. He gets kicked out.
-- He may be able to get back in by creating another identity or just by requesting to get back in, but he'd have to pay the entrance fee again.
+Now that Alice's community has a handful of writers, Charlie, a freelance writer wants to join so that he can increase his reach and make some more money. Charlie finds the community guidelines and sees that he must submit a writing sample and a small fee to be considered. The fee is required because Alice wants to prevent sybil attacks and doesn't want to waste her time reviewing halfhearted applications. It's also another way the community can make money. When Charlie pays the smart contract the small fee, the fee can be split between the members of the community. As defined in the guidelines and coded in the smart contract, Alice gets 40% as the community creator, the administrator, just Bob right now, gets 20%, and the few other writers split the remaining 40%.
 
-- Charlie starts abusing his power as the sole administrator? Someone makes a new community that is more fair and eventually everyone from Charlie's community goes there.
+More members are added as time goes by. There's now 5 administrators and 20 writers, and Alice needs to better realocate fees. If she does not, she may risk her members leaving to create a new community or to join another community. She updates the community guidelinse and the smart contract so that she only gets 20% of fees, 20% is split between the administrators, and the remaining 60% is split between the writers. Because Bob is both a writer and an administrator, he gets paid as both.
+
+Eventually Charlie starts violating the community guideliens. The guidelines say not to use hostile language, and Charlie's been warned multiple times regarding his word choice. Instead of just deleting his post, fixing a symptom of the issue, they kick Charlie out of the community. Alice calls the smart contract to remove Charlie from the list of writers. Because this action is recorded on chain, it is public. If Alice starts abusing her power as creator of the community, the community members will likely find another community.
 
 ### Short Term Vision
 
-- constantly iterating to find a set of standards that works well
-- create standards -> start creating communities -> update standards -> update communities and create new communities
+This short term vision is not set in stone; it is only guesses as to what may work.
 
-- create a researach community, people able to submit research to the community.
-  - most importantly, get this information up so we can start receiving feedback
-- hope to get feedback from others and we hope others tinker to find a community system that works, too.
+Short term we are going to start building communities. We want to find standards for smart contracts and decentralized storage that work in practice. We are going to create standards then create communities. After creating communities we will update the standards, update the communities, and create new communities.
 
-- members of the community, those that contribute, can apply for administrative privileges
+The first community we plan to create is a research community on decentralized online communities. It is where we will post this overview and other related pieces. We will start reaching out to people and online groups to try to get some publicity so that we can start receiving and incorporating feedback. We hope that some people will be interested in getting publishing and administrative privileges and if they are a good fit, we will add them to the community.
 
-- create a development community, pay the smart contract and funds get split between the group of developers working on it
+Next, we plan to create a development community. It will be a simple community where people can pay the smart contract to help support developers working on creating decentralized online communities. Initially the developer community will be only us, but we plan to create a reproducible process to set up communities in hopes that others will tinker with our ideas. If other developers are working on cool projects, we will add them to our development community. Alternatively, developers can set up their own.
 
-- create a research community, build on top of open source technology
-
-- initially focus on smart contracts and the frontend, use a content management system
-
-- spend time testing storage systems and actually understanding git under the hood
-
-  - then switch to decentralized storage -> community specific decentralized storage
-
-- anyone can fund the community and funding gets distributed to members based on the smart contract
-
-
+Initially, to get communities started quickly, we will focus on creating the smart contracts and the front end, using a centralized content management system to store community data. People will have to trust us initially, but we plan to incorporate decentralized storage as soon as we can.
 
 ## Anticipated Implications
 
@@ -315,14 +280,30 @@ In the former case, there is an issue of user privacy. While many, we believe, w
 This section is mere speculation. We're uncertain if decentralized communities would lead to more or less polarization and ultimately nobody can predict the future. But here's our argument for why we believe that the online communities we propose will decrease polarization.
 
 - people decide what groups to join -> won't it lead to more polarization?
+  - problem is opaque organizations with mixed-incentives bringing a one-sided perspective on the news. ML recommendation algorithms only putting content in front of us that we would agree with
+
 - most people are fairly moderate, most people will join moderate groups
 - emphasizing content people actually like, no sensationalist and provacative content -> more moderate content
+  - also we hope there's more opportunities to create moderate news communities.
 
 - people will join 'alt' groups, but most groups will join moderate groups. While members of alt groups today may think that the centralized networks are conspiring against the truth
-- such conspiracies depend on
+  - In the United States, get a Democrats perspective on political corruption and he'll say it's a problem with the Republican party. But if you get a Republicans perspective, they'll say it's a problem with the Democratic party.
+    - both sides believe that the other, as an opaque organizatino is concealing the truth.
 
--
+  - hope that transparent governance creates more truth in authorities
 
+
+## What's in it for us?
+
+- think this is super cool technology to build
+  - plan to eventually incorporate Clear Rain as a non-profit.
+
+- eventually we will need to make money, plan right now is to create a new for-profit organization further down the line
+  - a lot of ways that we can make money
+  - primary way: create a social network builder
+    - we'll have free basic templates for smart contracts and frontends
+
+  - most cutting edge options for smart contracts and frontends we'll make people pay for
 
 ## References
 
