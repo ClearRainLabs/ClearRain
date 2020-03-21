@@ -2,18 +2,14 @@
 
 ## Overview
 
-A fundamental problem online is one-size-fits-all communities do not mirror how humans naturally organize. Social media, online reviews, and all other sites where anyone can add content rely on online identities, yet they clump everyone into a single community under the governance of the opaque company that runs them. This one-size-fits-all community structure is prevalent everywhere online and
 
-fake news, fake reviews, clickbait, trolls and untrustworthy content in general are widespread online. Even worse, the opaque company the controls the community has assymmetric power over user data and the content users see. And because many of these sites rely on network effects, users can often only use a site known to abuse its power, or forgo the functionality of that site entirely.
+// REFACTOR
+A fundamental problem online is one-size-fits-all communities do not mirror how humans naturally organize. Social media, online reviews, and all other sites where anyone can add content rely on online identities, yet they clump everyone into a single community under the governance of the opaque company that runs them. This one-size-fits-all community structure is prevalent everywhere online and detaches the natural consequences from posting fake news, fake reviews, clickbait, and untrustworthy content in general. Even worse, the opaque company the controls the community has assymmetric power over user data and the content users see. And because many of these sites rely on network effects, users can often only use a site known to abuse its power, or forgo the functionality of that site entirely.
+//
 
-The solution, we propose, is to create an open standard for interoperable, smart contract governed communities. We believe that to bring real world civility online, online communities should mirror how humans naturally organize offline. Humans naturally organize in hierarchical groups. Online communities will use smart contracts to define its administrators, creators, and other roles designed for the specfied community.
-  - community governance will be transparent
-  - smart contracts may specficy that some interactions must be performed on-chain so that they are auditable.
-  - decentralized storage so network participants will control the data they create
+The solution, we propose, is to create an open standard for interoperable, smart contract governed communities. We believe that to bring real world civility online, online communities should mirror how humans naturally organize offline. Humans naturally organize in hierarchical groups. Our standard will have 2 core layers: An identity layer and a community layer. The identity layer will be decentralized, identity-owned storage so that identities own their data and be able to take it with them to different communities. The community layer will be smart contracts to define its administrators, creators, and other roles designed for the specfied community. Smart contracts allow for transparent governance and monetization opportunites.
 
-
-This is not a typical whitepaper. We do not focus on *what* we are building because we are not sure yet. We think that great products and inventions come as the result of tinkering, not from an immutable plan that some genius created. So this paper is focused on *why* we are trying to create an open standard for online communities and *how* we may design it.
-  - main function of writing is to organize our thoughts, get feedback, and eventually publish this to hopefully spark a more informed conversation around online communities.
+This is not a typical whitepaper. We do not focus on *what* we are building because we are not sure yet. We think that great products and inventions come as the result of tinkering, not from an immutable plan that some genius created. So this paper is focused on *why* we are trying to create an open standard for online communities and *how* we may design it. Our main function of writing is to organize our thoughts, get feedback, and at the very least, hopefully spark a more informed conversation around online communities.
 
 ## Background
 
@@ -21,35 +17,29 @@ This is not a typical whitepaper. We do not focus on *what* we are building beca
 
 #### 1. Untrustwothy Identities
 
-Untrustworthy content is prevalent seemingly everywhere online that unaccountable identities exist. Social media and review platforms rely on user contributions, yet have trouble making their users accountable. If an identity may or may not be malicious, acting in their own self-interest at the expense of others, then their content is inherently untrustworthy. It cannot be relied on as honest.
+Untrustworthy content is prevalent seemingly everywhere online that unaccountable identities exist. Social media and review platforms rely on user contributions, yet have trouble making their users accountable. If an identity is not accountable and may be acting in their own self-interest at the expense of others, then their content is untrustworthy. They cannot be relied on as honest.
 
-Generally, identities online can be trusted when they are well-known to a community. Somebody can be considered trustworthy if one can verify that what they say is generally true, or if others one considers trustworthy vouch for the trustworthiness of some identity.
+There are reliable identities online. Generally, identities online can be trusted when they are well-known to a community. Somebody is considered reliable after other's have verified what they say is generally true, or if others one considers trustworthy can vouch for the trustworthiness of some identity. Importantly, trust and reputation come from verification: checking claims for oneself or by confirming one's thoughts with others. Trust and reputation are completely subjective.[^1] While one individual's trust in a specified identity may influence other's trust in it, each person has their own, unique perception of that identity. Yet for one-size-fits-all communities, reputation intends to be objective.
 
-Importantly, the reputation of others needs to be verified for oneself. The majority of people in a group may think that Bob is awesome, but you, as a skeptic, think that Bob is just a great salesman of his point of view. While many accept what he says as dogma, you take it with a grain of salt.
+Identities and their content get their reputation from follower counts, likes, views, and star-ratings. Yet all those metrics can be bought. Without reliable reputation, there are no inherent disincentives in online networks. In the offline world, there are consequences to lying and cheating. Others lose trust in lyers and cheaters so that in the future, whether lying or cheating, nobody will believe them. We naturally ignore lyers and cheaters. We exclude them from our conversations and communities will physically exclude those who violate their norms. But on large, one-size-fits-all platforms, the authentic and malicious are indistinguishable because they attempt to use reputation systems that do not work.
 
-Reputation is inherently asymmetric, they stem from each and every person's point of view.[^1] Yet in one-size-fits-all communities, reputation is only symmetric; there is a single system for the entire platform.
+Resultantly, the internet is overflowing with unreliable content. Fake news, fake reviews, clickbait, and untrustworthy content exist on all platforms where anyone can create. It is a problem inherent to one-size-fits-all platforms. Even worse, the opaque companies that run these platforms have assymetric power over their network, and little to no accountability.
 
-Without reliable reputation, there are no inherent disincentives to online networks. In the offline world, there are consequences to lying and cheating. Others lose trust in lyers and cheaters so that in the future, whether lying or cheating, nobody will believe them. We naturally ignore lyers and cheaters. We exclude them from our conversations and in more extreme cases, communities will physically exclude those who violate their norms. But on large, one-size-fits-all platforms, the benevolent and malevolent are indistinguishable.
-
-Resultantly, the internet is overflowing with unreliable content. Fake news, fake reviews, clickbait, and untrustworthy content exist on all platforms where anyone can create content.
-
-Furthermore, trying to include all people on a one-size-fits-all platform is overly idealistic. Some will be excluded by what others deem bad behavior because there is no single set of ethical rules. Even worse, the opaque companies that run these companies have assymetric power over their network, and little to no accountability.
-
-[^1]: For the technically-inclined and those who are not convinced by jumping to the conclusion that reputation is asymmetric, check out this formal proof: [Sybilproof Repuation Mechanisms](http://www.eecs.harvard.edu/cs286r/courses/fall08/files/paper-CheFri.pdf)
+[^1]: Stated another way, reputation is inherently asymmetric. Check out this proof that shows only assymetric reputation systems can be reliable: [Sybilproof Repuation Mechanisms](http://www.eecs.harvard.edu/cs286r/courses/fall08/files/paper-CheFri.pdf)
 
 #### 2.  Misaligned Incentives
 
-Centralized platforms control the content users see, their data, and the ability to censor content on their platforms. The fundamental issue with this uneven balance of power is misaligned incentives between platforms and users. Platforms often want to maximize ad revenue. Resultantly, the want to maximize user attention and user data. More attention so their ad space is worth more and more data to improve their machine learning algorithms to generate more attention. Unfortunately, their algorithms to maximize attention have revealed that humans instinctively pay attention to sensationalist and provacative content. Mark Zuckerberg has acknowledged this problem on Facebook; refering to this content, he says, “people will engage with it more on average — even when they tell us afterwards they don’t like the content” (Zuckerberg). Just because a machine learning algorithm is able to keep users engaged on a platform for hours, unfortunately does not mean that the user liked the content they were seeing.
+Centralized platforms control the content users see, their data, and the ability to censor content on their platforms. A fundamental issue with this uneven balance of power is misaligned incentives between platforms and users. Platforms often want to maximize ad revenue. To do so, they try to maximize user attention and user data. More attention so their ad space is worth more and more data to improve their machine learning algorithms to generate more attention. Unfortunately, their algorithms to maximize attention have revealed that humans instinctively pay attention to sensationalist and provacative content. Mark Zuckerberg has acknowledged this problem on Facebook; refering to this content, he says, “people will engage with it more on average — even when they tell us afterwards they don’t like the content” (Zuckerberg). Just because a machine learning algorithm is able to keep users engaged on a platform for hours, unfortunately does not mean that the user liked the content they were seeing.
 
-The data these sites hoard makes them prime targets for hacks. All Facebook data is hosted on Facebook’s servers which makes it really easy for say [Cambridge Analytica](https://www.theguardian.com/news/2018/mar/17/cambridge-analytica-facebook-influence-us-election) to access millions of users’ data or even for one hacker to [access](https://www.cnn.com/2019/07/29/business/capital-one-data-breach/index.html) over 100 million credit cards. Not ideal.
+Additionally the data these sites hoard makes them prime targets for hacks. All Facebook data is hosted on Facebook’s servers which makes it really easy for say [Cambridge Analytica](https://www.theguardian.com/news/2018/mar/17/cambridge-analytica-facebook-influence-us-election) to access millions of users’ data or even for one hacker to [access](https://www.cnn.com/2019/07/29/business/capital-one-data-breach/index.html) over 100 million credit cards. Not ideal.
 
-Unfortunately from big, opaque companies like Facebook, there is little to no accountability. Zuckerberg can say that he is doing all he can to fix these problems. He can say that his software engineers are coding up the solutions as we speak. But we believe that the fundamental problem is with the structure of Facebook. As long Facebook is an opaque organization running a one-size-fits-all platform, we do not trust it.
+Unfortunately from big, opaque companies like Facebook, there is little to no accountability. Zuckerberg can say that he is doing all he can to fix these problems. He can say that his software engineers are coding up the solutions as we speak. But we believe that the fundamental problem is with the structure of Facebook. It is an opaque organization and Zuckerberg is able to pass on accountability to an unidentifiable group of Facebook workers.
 
 #### 3. Asymmetric Power
 
-The great flaw of opaque organizations is they benefit from all the upside potential of a network but avoid all downside risk. Instead downside risk is transferred to users. When Cambridge Analytica accesses the Facebook data of over 50 million (find larger number) users, Facebook publicly says that they have a team of software engineers fixing the issue. When people start speaking up about how addicting social media is and how machine learning algorithms favor provacative content, Zuckerberg tells everyone that Facebook has new, better than ever before algorithms that are going to solve everything. He has a team of software engineers coding them up right now. But no single person is ever accountable. Zuckerberg always claims that he had no idea and hands over the problem to someone else. This problem is not specific to just Facebook. Facebook is just one of the most prominent examples. Opaque organizations anywhere are great tools for avoiding downside risk. Without transparent governance, individuals will not be accountable.
+The great flaw of opaque organizations is they benefit from all the upside potential of a network but avoid all downside risk. Instead, downside risk is transferred to users. When Cambridge Analytica accesses the Facebook data of over 87 million users, Facebook publicly says that they have a team of software engineers fixing the issue (FB on data access). When people start speaking up about how addicting social media is and how machine learning algorithms favor provacative content, Zuckerberg tells everyone that Facebook has new, better than ever before algorithms that are going to solve everything. He has a team of software engineers coding them up right now. But no single person is ever accountable. Zuckerberg always claims that he had no idea and hands over the problem to someone else. This problem is not specific to just Facebook. Facebook is just one of the most prominent examples. Opaque organizations anywhere are great tools for avoiding downside risk. Without transparent governance, individuals will not be accountable.
 
-Furthermore, only these opaque, one-size-fits-all platforms have the ability to ability to censor content. But in the one-size-fits-all model censoring content favors the most intolerant individuals. As Taleb discusses in *Skin in the Game*, in order to please as many people as possible, standards must comply with the most intolerant individuals. One example Taleb gives is that nearly all drinks in the United States are kosher even though only a small minority of people are kosher. It does not make sense for drink manufacturers to make kosher and non-kosher versions of each drink when the cost difference is tiny, if anything, and non-kosher people can drink kosher drinks. This rule, that the most intolerant win, also helps explain why online bulletin board system in the late 90s became less tolerant after they were bought by corporations. The corporations started adding advertising, membership fees, and most importantly rules around what people could and could not say. Unfortunately, as Andreas Antonopoulos states, the weird people who made the bulletin board cool in the first place were no longer welcome (Antonopoulos). Early adopters should be able to be rewarded by helping networks grow, not be forced out as a result of helping a network succeed.
+Furthermore, only these opaque, one-size-fits-all platforms have the ability to ability to censor content. But in the one-size-fits-all model censoring content favors the most intolerant individuals. As Nassim Taleb discusses in *Skin in the Game*, in order to please as many people as possible, standards must comply with the most intolerant individuals. One example Taleb gives is that nearly all drinks in the United States are kosher even though only a small minority of people are kosher. It does not make sense for drink manufacturers to make kosher and non-kosher versions of each drink when the cost difference is tiny, if anything, and non-kosher people can drink kosher drinks. This rule, that the most intolerant win, also helps explain why online bulletin board system in the late 90s became less tolerant after they were bought by corporations. The corporations started adding advertising, membership fees, and most importantly rules around what people could and could not say. Unfortunately, as Andreas Antonopoulos states, the weird people who made the bulletin board cool in the first place were no longer welcome (Antonopoulos). Early adopters should be able to be rewarded by helping networks grow, not be forced out as a result of helping a network succeed.
 
 Current mainstream platforms control data, the content users see, avoid downside risk, and unfortunately often punish their early adopters. But worst of all, their singular ability to censor means they are distorting the Truth.
 
@@ -57,22 +47,20 @@ Current mainstream platforms control data, the content users see, avoid downside
 
 An organization with the singular ability to censor content becomes a gatekeeper to what is good and what is bad. They become a moderator between the truth and the people. But give people power and they will use it in their own self-interest. It's human nature.
 
-More broadly, *Homo sapiens* evolved to subconsciously justify what is in their own self-interest as cooperative. Like any animal, we naturally want to survive along with our kin. But we also need to coexist with others as larger groups of humans are much more powerful. So to conflate our animalistic desire to be eternal and our need to cooperate with others, we subconsciously justify the selfish as cooperative, what Kevin Simler and Robin Hanson call *strategic ignorance* (The Elephant in the Brain).[^1] Strategic ignorance is why you should never trust a salesman who doesn't reveal their own self-interest. And it's also why you should be weary of anyone with the ability to censor content. It's not the Truth that they are censoring upon, it's their own subjective version of what they probably believe is best for themself.
+More broadly, *Homo sapiens* evolved to subconsciously justify what is in their own self-interest as cooperative. Like any animal, we naturally want to survive along with our kin. But we also need to coexist with others as larger groups of humans are more powerful than smaller ones. So to conflate our animalistic desire to be eternal and our need to cooperate with others, we subconsciously justify the selfish as cooperative, what Kevin Simler and Robin Hanson call *strategic ignorance* (The Elephant in the Brain).[^1] Strategic ignorance is why you should never trust a salesman who doesn't reveal their own self-interest. And it's also why you should be weary of anyone with the ability to censor content. It's not the Truth that they are censoring upon, it's their own subjective version of what they probably believe is best for themself.
 
 The concept of singular gatekeepers ignores that good and bad are *subjective*. Even the truth is subjective. Consider the thought experiment known as Last Thursdayism: the entire universe was created last Thursday and every memory you have prior to last Thursday was created last Thursday, too. While this may seem like a ridiculous idea, it's unfalsifiable. All evidence to show that the universe is older than a couple days could have been created last Thursday. The implication of unfalsifiable ideas like Last Thursdayism is that there is no objective truth.[^2]
 
-Because truth is objective, each and everyone of us naturally gets to decide what is true. The late writer David Foster Wallace says, "The only thing that is capital-T True is that you get to *decide* how you're gonna try to see (the world)" (DFW speech). The Truth is what someone decides for themself.
-  - value from our own subjective experiences,
-Anything that others decide for you is dogma until you verify it for yourself (assuming you can).
+Because truth is subjective, each and everyone of us naturally gets to decide what is true. The late writer David Foster Wallace says, "The only thing that is capital-T True is that you get to *decide* how you're gonna try to see (the world)" (DFW speech). The Truth is what someone decides for themself. Anything that others decide for you is dogma until you verify it for yourself (assuming you can).
 
 Fundamentally, no single entity can decide what is best for everyone. Anyone that tries to will inherently distort the truth. So that bring us to our thesis:
 
   **Instead of trying to encompass everyone in a one-size-fits-all community, let's allow people to make and join the communities they actually want.**
 
-[^1]: A great example of strategic ignorance is what Princeton psychologists Emily Pronin and Matthew B. Kugler call the *introspection illusion* (Introspection Illusion). People naturally see themselves to less susceptible to bias than others. If you're like this author and try to recognize justifying selfishness in your everday life, you may recognize that you're far more likely to notice when others are susceptible to it than yourself. And even after recognizing this massive cognitive blindspot, it's still really hard to notice it in action.
+[^1]: A great example of strategic ignorance is what Princeton psychologists Emily Pronin and Matthew B. Kugler call the *introspection illusion* (Introspection Illusion). People naturally see themselves to less susceptible to bias than others. If you're like this author and try to recognize justifying selfishness in your everday life, you may recognize that you're far more likely to notice when others are susceptible to it than yourself. And even after recognizing this massive cognitive blindspot, it's still really hard to notice when you justifying your own selfishness in action.
 
 [^2]: There's two important tools that thinkers often use to figure out what is likely to be true. The first is reproducibility. Scientific fact is that which can be consistently replicated. Think the theory of gravity is a conspiracy? Try testing it. Throw a ball into the air and see if the theory of gravity holds. If it does not and more importantly you find a procedure to constently replicate you finding, then you just disproved Newton and Einstein.
-  The second tool is [Occam's razor](https://en.wikipedia.org/wiki/Occam%27s_razor): when faced with competing explanations, the simpler explanation is more likely to be right. If you have to jump through hoops to show that the the universe was created last Thursday, than the simpler explanation, that it was not, is more likely to be right. Another example is that physicists could model the entire galaxy as revolving around the earth as many did for hundreds of years, but they'd have to create an alternate, more complicated theory of gravity. In the simplest theory of gravity we have, the earth is not the center of the universe.
+  The second tool is [Occam's razor](https://en.wikipedia.org/wiki/Occam%27s_razor): when faced with competing explanations, the simpler explanation is more likely to be right. If you have to jump through hoops to show that the the universe was created last Thursday, than the simpler explanation, that it was not, is more likely to be right. Another example is that physicists could model the entire universe as revolving around the earth as many did for hundreds of years, but they'd have to create an alternate, more complicated theory of gravity. In the simplest theory of gravity we have, the earth is not the center of the universe.
 
 
 ### Human Organization
@@ -112,7 +100,7 @@ Wikipedia's structure is entirely transparent. So while some users have more pow
 
 It is not a completely decentralized, overly idealistic structure where everyone is equal. While some may fear taht Jimmy Wales may abuse his power, violating the policies he created, he says, "If I attempted to deviate from the (Neutral Point of View) policy, to push my own political agenda for example, then the contributors can and should take the database and the software and set up a competing project." Anyone who disagrees with Wales' governance decisions can fork Wikipedia, use someone else's fork, or merely use another encyclopedia. An open source community like Wikipedia can prevent leadership from abusing their power through the threat of a fork. People are allowed to vote with their feet, a feature typically not present online. Offline, though, most people are (hopefully) free to leave organizations, join new alternatives and create their own.
 
-Wikipedia is not and does not try to be comepletely decentralized. Instead Wikipedia is an auditable, forkable hierarchy.
+Wikipedia is not and does not try to be perfectly decentralized. Instead Wikipedia is an auditable, forkable hierarchy.
 
 
 ## Smart-Contract Governed Communities
@@ -205,105 +193,46 @@ Initially, to get communities started quickly, we will focus on creating the sma
 
 ## Anticipated Implications
 
-- ultimately impossible to know if this project will be adopted, and what it's implications would be if so, but here's some ideas
+Ultimately it is impossible to know if this project will be adopted, and the implications if so, but here's some of our ideas.
+
+### Community owned Communities
+
+Someone that helps build a community should have a say in how it is governed, if they want to. Governing communities will be work. Identities can be part of many communities so it's unlikely that one identity will want to help govern every single community it participates in. Importantly, though, we believe people should have the option to govern online communities.
 
 ### Extending Natural Human Organization
-- as information management tools have extended our ability to manage information, a decentralized ledger that tracks interactions may potentially allow for accurate reputation with over 150 members in a group
 
-- while posts may not be on chain yet,
+Like how information management tools like computers and the web have extended our ability to manage information, a decenetralized ledger that tracks administrative interactions can help maintain stable groups over the Dunbar number.
 
-- ref sybil proof reputation?
+- Wikipedia has millions of users, (incredibly broad guidelines [Neutral Point of View])
+  - more specfic, quality controlled communities will have a small subset of contributors
 
-### Communities within communities
+- do not need to track interactions in our heads because a decentralized ledger can transparently track administrative actions
+- timestamped decentralized storage with version control (Is 3Box timestamped?) for dispute resolution
+  - also why posts do not need to be on chain, increasing efficiency
 
-- like how businesses can have different departments managed by different people, communities can have communities within them
-- Charlie's blogging community starts getting big, he can't oversee everything, creates subcommunities that can be managed by middle managers, middle managers get paid for their work and get to use Charlie's esteem to bootstrap their community, Charlie taking a risk on the community because funding a bad community will affect his reputation.
-
-### Democratizing Control Over Communities
-- communities controlled by opaque companies
-
-- communities can allow anyone to be an administrator, administrators are known
-
-- we believe that most people will not want to be administrators, as most people who use wikipedia do not contribute to it. (90-9-1 rule of the internet)
-
-- anyone can create their own community
-- status quo is that early adopters to social networks or contributors to review sites are treated like everyone else
-- But now, early adopters of networks have the ability to participate in governance
-- creating communities like creating a startup, most will likely be worthless
-
-- less friction to creating a new community -> less likely that communities will be able to abuse their power
 
 ### Monetization
 
+We opt to store community governance in smart contracts rather than other decentralized, immutable storage options because smart contracts will allow communities opportunities to capture the value they are creating. Anyone can pay the smart contract for a variety of reasons listed below and their payment will be distributed to community members as defined in the smart contract.
+
 #### 1. Pay to Join
 
-- large communities you need to pay to be able to view and post in, mirrors traditional social media
-- prevents malicious identities, abusive identities get kicked out, can try to re-enter but they'll need to pay the fee again
-- where fees go is determine by the smart contract, distributed to administrators and contributors of the community.
-  - smart contracts specifies community ownership. Alice owns 20% of the community -> 20% of fees go to alice
+We envision some large communities that mirror traditional social media like Twitter and Instagram. To deter malicious identities from joining, communities can require a small fee.
 
 #### 2. Pay to View
 
-- community of content creators and viewers need to pay to view content, mirrors subscription services like Netflix or the New York Times
+Communities of popular content creators can require viewers to pay to access their content. When someone pays their smart contract, their payment is immutably recorded and they can use the payment record to view the content. Communities can require reoccuring payments, one time payments to access all previous content, or one time payments to access single pieces of content.
 
 #### 3. Pay to Post
 
-- communities can make outsiders pay to post content within the community, mirrors advertising on social networks
+Popular communities can make identities outside their community pay to post content within the community, mirroring traditional advertising on social networks.
 
-#### 4. Pay to Support
+#### 4. Mediators of Individual Data
 
-- pay smart contract to support a group of developers or a group of researchers
-- decentralized donations, smart contract determines how funds are split up, so that donators know exactly who their funds are going to
-  - tracking people's contributions in 3Box may be able to give people to ability to easily audit where their funds are going
+Communities can act as intermediaries between users and those that want to buy their data. E. Glen Weyl and Jaron Lanier proposed these organizations under the name of mediators of individual data (MIDs). Weyl and Lanier's proposal identifies the problem that people are giving their data away from free to companies like Facebook and Google even though these companies find it super valuable. They predict, under many, many assumptions, that over the next 20 years people getting paid fairly for their data could raise the median income of a household of 4 by $20,000 (Radical Markets, 247).
 
-  - can request developers to create a new smart contract that splits a certain ratio between developers
+In our model, community administrators would be responsible for bargaining with the companies and individuals that want to buy data.
 
-#### 5. Mediators of Individual Data
-
-- communities can act as intermediaries between users and those that want to buy their data
-- idea proposed by E. Glen Weyl and Jaron Lanier (Radical Markets)
-
-- inalienable data the is aggregated on a radix like server so it can't be copied?
-
-### Privacy
-- people control their own data
-
-- encourage people not to be cautious of linking online identities to real world identities
-- encourage people to create multiple different identities
-- in private communities, data will only be available within the community
-- large technical problem of inalienable provenance
-
-In the former case, there is an issue of user privacy. While many, we believe, will have no problem linking their online and offline identities, users should have a choice whether or not to remain anonymous. We worry about cases where people may lose jobs over activity online. It's previously unprecendented to say something just meant to friends and have consequences in other parts of their lives.
-
-
-### Consolidation
-This section is mere speculation. We're uncertain if decentralized communities would lead to more or less polarization and ultimately nobody can predict the future. But here's our argument for why we believe that the online communities we propose will decrease polarization.
-
-- people decide what groups to join -> won't it lead to more polarization?
-  - problem is opaque organizations with mixed-incentives bringing a one-sided perspective on the news. ML recommendation algorithms only putting content in front of us that we would agree with
-
-- most people are fairly moderate, most people will join moderate groups
-- emphasizing content people actually like, no sensationalist and provacative content -> more moderate content
-  - also we hope there's more opportunities to create moderate news communities.
-
-- people will join 'alt' groups, but most groups will join moderate groups. While members of alt groups today may think that the centralized networks are conspiring against the truth
-  - In the United States, get a Democrats perspective on political corruption and he'll say it's a problem with the Republican party. But if you get a Republicans perspective, they'll say it's a problem with the Democratic party.
-    - both sides believe that the other, as an opaque organizatino is concealing the truth.
-
-  - hope that transparent governance creates more truth in authorities
-
-
-## What's in it for us?
-
-- think this is super cool technology to build
-  - plan to eventually incorporate Clear Rain as a non-profit.
-
-- eventually we will need to make money, plan right now is to create a new for-profit organization further down the line
-  - a lot of ways that we can make money
-  - primary way: create a social network builder
-    - we'll have free basic templates for smart contracts and frontends
-
-  - most cutting edge options for smart contracts and frontends we'll make people pay for
 
 ## References
 
@@ -336,3 +265,5 @@ David Foster Wallace 2005 commencement
 wiki statistics: https://en.wikipedia.org/wiki/Wikipedia:Statistics
 
 Wikipedia governance 2002 essay: https://meta.wikimedia.org/wiki/Wikipedia_Governance_(2002_essay) (Language is aimed at a college student, international wikis as indenpendent projects, supposed to be neutral point of view but everyone has cognitive biases and their biases is for wikipedia)
+
+FB on data access: https://about.fb.com/news/2018/04/restricting-data-access/
