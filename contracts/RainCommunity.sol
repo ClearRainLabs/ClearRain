@@ -7,9 +7,9 @@ contract RainCommunity is AccessControl {
   bytes32 public constant OWNER_ROLE = keccak256('OWNER_ROLE');
   bytes32 public constant ADMIN_ROLE = keccak256('ADMIN_ROLE');
 
-  address payable public owner;
-  address payable[] public admins;
+  address payable private _owner;
 
+  mapping(address => bool) private _admins;
   mapping(address => bool) private _moderators;
   mapping(address => bool) private _members;
 
@@ -22,15 +22,20 @@ contract RainCommunity is AccessControl {
 
     // set up roles
     _setupRole(OWNER_ROLE, msg.sender);
-    grantRole(ADMIN_ROLE, msg.sender);
+    _setupRole(ADMIN_ROLE, msg.sender);
 
+    _admins[msg.sender] = true;
     _moderators[msg.sender] = true;
     _members[msg.sender] = true;
 
     _setRoleAdmin(OWNER_ROLE, OWNER_ROLE);
     _setRoleAdmin(ADMIN_ROLE, OWNER_ROLE);
 
-    owner = msg.sender;
+    _owner = msg.sender;
+  }
+
+  function owner () public view returns (address) {
+    return _owner;
   }
 
   /**
@@ -47,14 +52,18 @@ contract RainCommunity is AccessControl {
     return _symbol;
   }
 
-  function _addModerator (address payable moderator) private {
+  function addModerator (address payable moderator) public {
     require(hasRole(ADMIN_ROLE, msg.sender),'Caller is not an admin');
     _moderators[moderator] = true;
   }
 
-  function _addAdmin (address payable admin) private {
-    require(hasRole(OWNER_ROLE, msg.sender), 'Caller does not own the community');
+  function addAdmin (address payable admin) public {
     grantRole(ADMIN_ROLE, admin);
-    admins.push(admin);
+    _admins[admin] = true;
+  }
+
+  function removeAdmin (address admin) public {
+    revokeRole(ADMIN_ROLE, admin);
+    _admins[admin] = false;
   }
 }
