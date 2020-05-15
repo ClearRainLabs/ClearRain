@@ -4,6 +4,9 @@
   "description": "Protocol for self-governed online communities",
   "version": "0.1.0",
   "author": "samhatem",
+  "scripts": {
+    "test": "truffle test"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^3.0.1"
   },
