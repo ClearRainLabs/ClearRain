@@ -4,9 +4,9 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract CommunityRoles is AccessControl {
 
-  bytes32 public constant OWNER_ROLE = keccak256('OWNER_ROLE');
-  bytes32 public constant ADMIN_ROLE = keccak256('ADMIN_ROLE');
-  bytes32 public constant MODERATOR_ROLE = keccak256('MODERATOR_ROLE');
+  bytes32 public constant OWNER_ROLE = keccak256("OWNER_ROLE");
+  bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+  bytes32 public constant MODERATOR_ROLE = keccak256("MODERATOR_ROLE");
 
   address private _owner;
   mapping(address => bool) private _admins;
@@ -58,7 +58,7 @@ contract CommunityRoles is AccessControl {
   }
 
   function addModerator(address moderator) public {
-    require(hasRole(ADMIN_ROLE, msg.sender),'Caller is not an admin');
+    require(hasRole(ADMIN_ROLE, msg.sender), "Caller is not an admin");
     grantRole(MODERATOR_ROLE, moderator);
     _moderators[moderator] = true;
   }
@@ -78,7 +78,7 @@ contract CommunityRoles is AccessControl {
   }
 
   function removeMember(address user) public {
-    require(hasRole(MODERATOR_ROLE, msg.sender) || msg.sender == user, 'Caller is not a moderator or itself');
+    require(hasRole(MODERATOR_ROLE, msg.sender) || msg.sender == user, "Caller is not a moderator or itself");
     _members[user] = false;
   }
 }
