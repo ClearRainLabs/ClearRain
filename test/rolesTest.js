@@ -1,19 +1,21 @@
 const RainCommunity = artifacts.require('RainCommunity')
+const getProxy = ('../helpers/proxy')
 
 contract('RainCommunity', async accounts => {
-  let contract
   const owner = accounts[0]
+  let contract
 
-  beforeEach('Set up contract', async () => {
-    contract = await RainCommunity.deployed()
+  beforeEach(async () => {
+    contract = await getProxy(RainCommunity)
+    console.log(contract, 'THE CONTRACT')
   })
 
   it('Get name and symbol', async () => {
     const name = await contract.name.call()
-    assert.equal(name, 'rain', `Name ${name} was not correct`)
+    assert.equal(name, 'Rain', `Name ${name} was not correct`)
 
     const symbol = await contract.symbol.call()
-    assert.equal(symbol, 'rai', `Symbol ${symbol} was not correct`)
+    assert.equal(symbol, 'RAI', `Symbol ${symbol} was not correct`)
   })
 
   it('Get owner of the community', async () => {
@@ -88,5 +90,16 @@ contract('RainCommunity', async accounts => {
     await contract.transferOwnership(accounts[2], { from: accounts[1] })
     newOwner = await contract.owner.call()
     assert.equal(newOwner, accounts[2], 'Owner should be updated again')
+  })
+
+  it('Create a new community', async () => {
+    const salt = '0xdfffffffffffffffffffffff'
+    const { logs } = await contract.createCommunity('New', 'NEW', salt, { from: owner })
+    expectEvent.inLogs(logs, 'NewCommunity')
+
+    const newCommunityAddress = logs[0].args.newCommunityAddress
+    const newCommunity = await RainCommunity.at(newCommunityAddress)
+    const communityOwner = await newCommunity.owner()
+    console.log(communityOwner, 'THE COMMUNITY OWNER')
   })
 })

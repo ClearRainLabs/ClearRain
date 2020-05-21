@@ -9,12 +9,16 @@
     "lint-fix": "solium -d contracts/ --fix"
   },
   "dependencies": {
+    "@openzeppelin/cli": "^2.8.2",
     "@openzeppelin/contracts": "^3.0.1",
+    "@openzeppelin/upgrades": "^2.8.0",
     "@truffle/hdwallet-provider": "^1.0.35",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "hardlydifficult-eth": "^1.0.0"
   },
   "license": "MIT",
   "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.5",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",

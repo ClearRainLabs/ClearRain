@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity 0.6.7;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
@@ -13,20 +13,20 @@ contract CommunityRoles is AccessControl {
   mapping(address => bool) private _moderators;
   mapping(address => bool) private _members;
 
-  constructor() public {
-    _setupRole(OWNER_ROLE, msg.sender);
-    _setupRole(ADMIN_ROLE, msg.sender);
-    _setupRole(MODERATOR_ROLE, msg.sender);
+  constructor(address _comOwner) public {
+    _setupRole(OWNER_ROLE, _comOwner);
+    _setupRole(ADMIN_ROLE, _comOwner);
+    _setupRole(MODERATOR_ROLE, _comOwner);
 
-    _admins[msg.sender] = true;
-    _moderators[msg.sender] = true;
-    _members[msg.sender] = true;
+    _admins[_comOwner] = true;
+    _moderators[_comOwner] = true;
+    _members[_comOwner] = true;
 
     _setRoleAdmin(OWNER_ROLE, OWNER_ROLE);
     _setRoleAdmin(ADMIN_ROLE, OWNER_ROLE);
     _setRoleAdmin(MODERATOR_ROLE, ADMIN_ROLE);
 
-    _owner = msg.sender;
+    _owner = _comOwner;
   }
 
   function owner() public view returns (address) {
@@ -38,7 +38,7 @@ contract CommunityRoles is AccessControl {
     addAdmin(newOwner);
     addModerator(newOwner);
 
-    renounceRole(OWNER_ROLE, msg.sender);
+    renounceRole(OWNER_ROLE, _owner);
     _owner = newOwner;
   }
 
@@ -48,7 +48,7 @@ contract CommunityRoles is AccessControl {
   }
 
   function removeAdmin(address admin) public {
-    if (msg.sender == admin) {
+    if (_owner == admin) {
       renounceRole(ADMIN_ROLE, admin);
     } else {
       revokeRole(ADMIN_ROLE, admin);
@@ -58,13 +58,13 @@ contract CommunityRoles is AccessControl {
   }
 
   function addModerator(address moderator) public {
-    require(hasRole(ADMIN_ROLE, msg.sender), "Caller is not an admin");
+    require(hasRole(ADMIN_ROLE, _owner), "Caller is not an admin");
     grantRole(MODERATOR_ROLE, moderator);
     _moderators[moderator] = true;
   }
 
   function removeModerator(address moderator) public {
-    if (msg.sender == moderator) {
+    if (_owner == moderator) {
       renounceRole(MODERATOR_ROLE, moderator);
     } else {
       revokeRole(MODERATOR_ROLE, moderator);
@@ -78,7 +78,7 @@ contract CommunityRoles is AccessControl {
   }
 
   function removeMember(address user) public {
-    require(hasRole(MODERATOR_ROLE, msg.sender) || msg.sender == user, "Caller is not a moderator or itself");
+    require(hasRole(MODERATOR_ROLE, _owner) || _owner == user, "Caller is not a moderator or itself");
     _members[user] = false;
   }
 }
