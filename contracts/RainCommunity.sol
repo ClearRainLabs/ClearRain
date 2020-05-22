@@ -21,7 +21,7 @@ contract RainCommunity is
 
   address public parentCommunity;
 
-  address public communityTemplate;
+  address payable public communityTemplate;
 
   event NewCommunity(address indexed creator, address indexed newCommunityAddress);
   event SetCommunityTemplate(address communityTemplate);
@@ -38,6 +38,25 @@ contract RainCommunity is
     _name = name;
     _symbol = symbol;
     parentCommunity = _parentCommunity;
+  }
+
+  function initialize(
+    address _parentCommunity,
+    address _owner,
+    string memory name,
+    string memory symbol,
+    address payable _defaultTemplate
+  ) public
+    initializer
+  {
+    // TODO: should check to make sure default template is initialized
+
+    _initializeComunityRoles(_owner);
+    _name = name;
+    _symbol = symbol;
+    parentCommunity = _parentCommunity;
+    communityTemplate = _defaultTemplate;
+    emit SetCommunityTemplate(_defaultTemplate);
   }
 
   /**
@@ -93,7 +112,7 @@ contract RainCommunity is
     }
 
     address payable newCommunity = address(uint160(address(communityTemplate).createClone2(salt)));
-    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol);
+    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol, communityTemplate);
 
     childCommunities[newCommunity] = Community({ deployed: true });
     emit NewCommunity(msg.sender, newCommunity);

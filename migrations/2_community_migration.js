@@ -25,7 +25,6 @@ async function deploy (options, accounts) {
   )
 
   const communityTemplate = await RainCommunity.new()
-
   await rainContract.methods
     .setCommunityTemplate(communityTemplate.address)
     .send({ from: owner })
