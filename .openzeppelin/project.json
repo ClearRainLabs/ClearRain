@@ -1,0 +1,18 @@
+{
+  "manifestVersion": "2.2",
+  "contracts": {
+    "RainCommunity": "RainCommunity"
+  },
+  "dependencies": {},
+  "name": "clearrain",
+  "version": "0.1.0",
+  "compiler": {
+    "compilerSettings": {
+      "optimizer": {}
+    },
+    "typechain": {
+      "enabled": false
+    }
+  },
+  "telemetryOptIn": true
+}
