@@ -95,9 +95,12 @@ contract('RainCommunity', async accounts => {
     const salt = '0xdffffffffffffffffffffffc'
     const tx = await contract.createCommunity('New', 'NEW', salt, { from: owner })
 
-    const newCommunityAddress = tx.logs[0].args.newCommunityAddress
+    const evt = tx.logs.find(v => v.event === 'NewCommunity')
+
+    const { newCommunityAddress } = evt.args
+
     const newCommunity = await RainCommunity.at(newCommunityAddress)
-    await newCommunity.owner.call()
-    // assert.equal(communityOwner, owner, 'Owner should be the first account')
+    const communityOwner = await newCommunity.owner.call()
+    assert.equal(communityOwner, owner, 'Owner should be the first account')
   })
 })
