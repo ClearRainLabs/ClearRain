@@ -1,12 +1,12 @@
 pragma solidity 0.6.7;
 
-import '@openzeppelin/upgrades/contracts/Initializable.sol';
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol";
+import "@openzeppelin/contracts-ethereum-package/contracts/access/AccessControl.sol";
 import "hardlydifficult-eth/contracts/proxies/Clone2Factory.sol";
 
 contract RainCommunity is
   Initializable,
-  AccessControl
+  AccessControlUpgradeSafe
 {
   using Clone2Factory for address;
 
@@ -28,16 +28,24 @@ contract RainCommunity is
   mapping(address => bool) private _moderators;
   mapping(address => bool) private _members;
 
+  address public parentCommunity;
+
+  address public communityTemplate;
+
   event NewCommunity(address indexed creator, address indexed newCommunityAddress);
+  event SetCommunityTemplate(address communityTemplate)
 
   function initialize(
+    address _parentCommunity
     string memory name,
     string memory symbol
   ) public
     initializer
   {
+    __AccessControl_init();
     _name = name;
     _symbol = symbol;
+    parentCommunity = _parentCommunity;
 
     _setupRole(OWNER_ROLE, msg.sender);
     _setupRole(ADMIN_ROLE, msg.sender);
@@ -52,6 +60,11 @@ contract RainCommunity is
     _setRoleAdmin(MODERATOR_ROLE, ADMIN_ROLE);
 
     _owner = msg.sender;
+  }
+
+  modifier onlyOwner() {
+    require(_owner == msg.sender, "Ownable: caller is not the owner");
+    _;
   }
 
   /**
@@ -72,6 +85,20 @@ contract RainCommunity is
     return _owner;
   }
 
+  function setCommunityTemplate(
+    address payable _communityTemplate
+  ) external
+    onlyOwner
+  {
+    RainCommunity(_communityTemplate).initialize(
+      address(this), "", ""
+    );
+
+    communityTemplate = _communityTemplate;
+
+    emit SetCommunityTemplate(_communityTemplate);
+  }
+
   function transferOwnership(address newOwner) public {
     grantRole(OWNER_ROLE, newOwner);
     addAdmin(newOwner);
@@ -87,7 +114,7 @@ contract RainCommunity is
   }
 
   function removeAdmin(address admin) public {
-    if (_owner == admin) {
+    if (msg.sender == admin) {
       renounceRole(ADMIN_ROLE, admin);
     } else {
       revokeRole(ADMIN_ROLE, admin);
@@ -103,7 +130,7 @@ contract RainCommunity is
   }
 
   function removeModerator(address moderator) public {
-    if (_owner == moderator) {
+    if (msg.sender == moderator) {
       renounceRole(MODERATOR_ROLE, moderator);
     } else {
       revokeRole(MODERATOR_ROLE, moderator);
@@ -127,14 +154,13 @@ contract RainCommunity is
     bytes12 _salt
   ) public
   {
-    _createCommunity(_newName, _newSymbol, _salt, address(this));
+    _createCommunity(_newName, _newSymbol, _salt);
   }
 
   function _createCommunity(
     string memory _newName,
     string memory _newSymbol,
-    bytes12 _salt,
-    address _communityTemplate
+    bytes12 _salt
   ) private
   {
     bytes32 salt;
@@ -146,8 +172,8 @@ contract RainCommunity is
       salt := mload(pointer)
     }
 
-    address payable newCommunity = address(uint160(address(_communityTemplate).createClone2(salt)));
-    RainCommunity(newCommunity).initialize(_newName, _newSymbol);
+    address payable newCommunity = address(uint160(address(communityTemplate).createClone2(salt)));
+    RainCommunity(newCommunity).initialize(address(this), _newName, _newSymbol);
 
     childCommunities[newCommunity] = Community({ deployed: true });
     emit NewCommunity(msg.sender, newCommunity);

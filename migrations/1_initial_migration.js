@@ -1,6 +1,6 @@
 const Migrations = artifacts.require('./Migrations.sol')
 const fs = require('fs')
-const getNetworkFile = require('./helpers/ZosNetworkFile.js')
+const getNetworkFile = require('../helpers/ZosNetworkFile.js')
 
 module.exports = async function initialMigration (deployer) {
   // If the network is `--reset`, then also delete the ZOS configuration so that ZOS resets.

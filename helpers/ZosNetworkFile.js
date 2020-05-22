@@ -1,7 +1,6 @@
 const Zos = require('@openzeppelin/cli')
 
 module.exports = async function getNetworkFile (web3) {
-  console.log(Zos, 'ZOS IN ZNF')
   const _id = await web3.eth.net.getId()
   let network
   switch (_id) {

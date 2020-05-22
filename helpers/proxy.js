@@ -5,6 +5,9 @@ module.exports = async function getProxy (contractArtifact) {
   const proxies = networkFile.getProxies({
     contract: contractArtifact.contractName
   })
+
+  console.log(proxies, 'THE PROXIES')
+
   const mostRecentProxy = proxies.length - 1
   const proxyAddress = proxies[mostRecentProxy].address
   return await contractArtifact.at(proxyAddress)
