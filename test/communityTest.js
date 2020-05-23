@@ -1,23 +1,24 @@
 const RainCommunity = artifacts.require('RainCommunity')
 const getProxy = require('../helpers/proxy')
 const { utils } = require('hardlydifficult-eth')
-
-// const { expectRevert } = require('@openzepplin/test-helpers')
+const { expectRevert } = require('@openzeppelin/test-helpers')
 
 const { checkCommunityRoles } = require('./rolesTest.js')
 
+let templateAddress
+let prevCommunity
+let rainCommunity
+
 contract('RainCommunity', async accounts => {
   const owner = accounts[0]
-  let templateAddress
-  let prevAddr
 
   before(async () => {
-    contract = await getProxy(RainCommunity)
-    templateAddress = await contract.communityTemplate()
+    rainCommunity = await getProxy(RainCommunity)
+    templateAddress = await rainCommunity.communityTemplate()
   })
 
-  describe('Test the initial contract', async () => {
-    await checkCommunityRoles(contract, accounts, 'Rain', 'RAI', accounts[0])
+  it('Test the initial contract', async () => {
+    await checkCommunityRoles(rainCommunity, accounts, 'Rain', 'RAI', accounts[0])
   })
 
   describe('Deploy with Clone 2 with various salts', () => {
@@ -33,35 +34,53 @@ contract('RainCommunity', async accounts => {
     ]
     for (let i = 0; i < testSalts.length; i++) {
       const salt = testSalts[i]
+      const name = `New-${i}`
+      const symbol = `N${i}`
 
       describe(`Salt: ${salt}`, () => {
         before(async () => {
-          const tx = await contract.createCommunity('New', 'NEW', salt, { from: owner })
+          const tx = await rainCommunity.createCommunity(name, symbol, salt, { from: owner })
 
           const evt = tx.logs.find(v => v.event === 'NewCommunity')
 
           const { newCommunityAddress } = evt.args
 
-          prevAddr = contract.address
-          contract = await RainCommunity.at(newCommunityAddress)
+          prevCommunity = rainCommunity
+          rainCommunity = await RainCommunity.at(newCommunityAddress)
         })
 
         it('Check community template', async () => {
-          const taddr = await contract.communityTemplate()
+          const taddr = await rainCommunity.communityTemplate()
           assert.equal(taddr, templateAddress, 'Template address of created community incorrect')
         })
 
         it('Check roles of community', async () => {
-          await checkCommunityRoles(contract, accounts, 'New', 'NEW', accounts[0])
+          await checkCommunityRoles(rainCommunity, accounts, name, symbol, owner)
         })
 
         it('Matches the JS calculated address', async () => {
           const address = await utils.create2.buildClone2Address(
-            prevAddr,
+            prevCommunity.address,
             templateAddress,
             accounts[0] + salt.replace('0x', '')
           )
-          assert.equal(address, contract.address)
+          assert.equal(address, rainCommunity.address)
+        })
+
+        it('Should fail if a salt is re-used', async () => {
+          await expectRevert.unspecified(
+            prevCommunity.createCommunity(name, symbol, salt, { from: owner }),
+            'Re-used salt should fail'
+          )
+        })
+
+        it('Can use the same salt if the account is different', async () => {
+          const tx = await prevCommunity.createCommunity(name, symbol, salt, { from: accounts[9] })
+          const evt = tx.logs.find(v => v.event === 'NewCommunity')
+
+          const diffAddr = evt.args.newCommunityAddress
+          const diffContract = RainCommunity.at(diffAddr)
+          await checkCommunityRoles(diffContract, accounts, name, symbol, accounts[9])
         })
       })
     }

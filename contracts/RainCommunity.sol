@@ -30,11 +30,12 @@ contract RainCommunity is
     address _parentCommunity,
     address _owner,
     string memory name,
-    string memory symbol
+    string memory symbol,
+    bool _isOpen
   ) public
     initializer
   {
-    _initializeComunityRoles(_owner);
+    _initializeComunityRoles(_owner, _isOpen);
     _name = name;
     _symbol = symbol;
     parentCommunity = _parentCommunity;
@@ -45,13 +46,14 @@ contract RainCommunity is
     address _owner,
     string memory name,
     string memory symbol,
-    address payable _defaultTemplate
+    address payable _defaultTemplate,
+    bool _isOpen
   ) public
     initializer
   {
     // TODO: should check to make sure default template is initialized
 
-    _initializeComunityRoles(_owner);
+    _initializeComunityRoles(_owner, _isOpen);
     _name = name;
     _symbol = symbol;
     parentCommunity = _parentCommunity;
@@ -79,7 +81,7 @@ contract RainCommunity is
     onlyOwner()
   {
     RainCommunity(_communityTemplate).initialize(
-      address(this), address(0), "", ""
+      address(this), address(0), "", "", true
     );
 
     communityTemplate = _communityTemplate;
@@ -112,7 +114,7 @@ contract RainCommunity is
     }
 
     address payable newCommunity = address(uint160(address(communityTemplate).createClone2(salt)));
-    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol, communityTemplate);
+    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol, communityTemplate, true);
 
     childCommunities[newCommunity] = Community({ deployed: true });
     emit NewCommunity(msg.sender, newCommunity);

@@ -16,7 +16,9 @@ contract CommunityRoles is
   mapping(address => bool) private _moderators;
   mapping(address => bool) private _members;
 
-  function _initializeComunityRoles(address _initOwner) internal {
+  bool public isOpen;
+
+  function _initializeComunityRoles(address _initOwner, bool _isOpen) internal {
     __AccessControl_init();
 
     _setupRole(OWNER_ROLE, _initOwner);
@@ -32,6 +34,7 @@ contract CommunityRoles is
     _setRoleAdmin(MODERATOR_ROLE, ADMIN_ROLE);
 
     _owner = _initOwner;
+    isOpen = _isOpen;
   }
 
   modifier onlyOwner() {
@@ -84,7 +87,13 @@ contract CommunityRoles is
   }
 
   function addMember(address user) public {
-    _members[user] = true;
+    if (isOpen) {
+      _members[user] = true;
+    } else {
+      require(hasRole(MODERATOR_ROLE, msg.sender) || hasRole(ADMIN_ROLE, msg.sender),
+        'Sender must be admin or moderator to add a member');
+      _members[user] = true;
+    }
   }
 
   function removeMember(address user) public {

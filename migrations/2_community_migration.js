@@ -18,7 +18,7 @@ async function deploy (options, accounts) {
       {
         contractAlias: 'RainCommunity',
         methodName: 'initialize',
-        methodArgs: [constants.ZERO_ADDRESS, owner, 'Rain', 'RAI']
+        methodArgs: [constants.ZERO_ADDRESS, owner, 'Rain', 'RAI', true]
       },
       options
     )
