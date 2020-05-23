@@ -1,6 +1,6 @@
 const RainCommunity = artifacts.require('RainCommunity')
 const getProxy = require('../helpers/proxy')
-const { utils } = require('hardlydifficult-eth')
+const { utils, constants } = require('hardlydifficult-eth')
 const { expectRevert } = require('@openzeppelin/test-helpers')
 
 const { checkCommunityRoles } = require('./rolesTest.js')
@@ -19,6 +19,11 @@ contract('RainCommunity', async accounts => {
 
   it('Test the initial contract', async () => {
     await checkCommunityRoles(rainCommunity, accounts, 'Rain', 'RAI', accounts[0])
+  })
+
+  it('Test parent community of initial contract', async () => {
+    const parent = await rainCommunity.parentCommunity()
+    assert.equal(parent, constants.ZERO_ADDRESS, 'Parent community should be zero address')
   })
 
   describe('Deploy with Clone 2 with various salts', () => {
@@ -52,6 +57,11 @@ contract('RainCommunity', async accounts => {
         it('Check community template', async () => {
           const taddr = await rainCommunity.communityTemplate()
           assert.equal(taddr, templateAddress, 'Template address of created community incorrect')
+        })
+
+        it('Check parent community', async () => {
+          const parent = await rainCommunity.parentCommunity()
+          assert.equal(parent, prevCommunity.address, 'Parent community is incorrect')
         })
 
         it('Check roles of community', async () => {
