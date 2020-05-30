@@ -1,0 +1,3 @@
+[submodule "rainbox"]
+	path = 3box
+	url = git@github.com:samhatem/rainbox.git
