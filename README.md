@@ -19,5 +19,5 @@ Run a local blockchain at port 8485. We recommend [ganache](https://www.truffles
 ```bash
 yarn compile            # Compile smart contracts
 yarn migrate:dev        # deploy the contracts to the local blockchain
-yarn test                # test the smart contracts
+yarn test               # test the smart contracts
 ```
