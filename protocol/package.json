@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "samhatem",
   "scripts": {
-    "test": "truffle test ./test/communityTest.js --network development",
+    "test": "yarn migrate:dev && truffle test ./test/communityTest.js --network development",
     "migrate:dev": "truffle migrate --network development",
     "lint-fix": "solium -d contracts/ --fix"
   },

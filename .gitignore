@@ -2,7 +2,7 @@
 **/build
 
 # OpenZeppelin
-.openzeppelin/dev-*.json
-.openzeppelin/.session
+**/.openzeppelin/dev-*.json
+**/.openzeppelin/.session
 
 .env
