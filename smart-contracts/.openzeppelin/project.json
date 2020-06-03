@@ -4,22 +4,15 @@
     "RainCommunity": "RainCommunity"
   },
   "dependencies": {},
-  "name": "clearrain",
+  "name": "ClearRain",
   "version": "0.1.0",
   "compiler": {
     "compilerSettings": {
-      "optimizer": {
-        "enabled": false,
-        "runs": "200"
-      }
+      "optimizer": {}
     },
     "typechain": {
       "enabled": false
-    },
-    "manager": "openzeppelin",
-    "solcVersion": "0.6.7",
-    "artifactsDir": "build/contracts",
-    "contractsDir": "contracts"
+    }
   },
   "telemetryOptIn": true
 }

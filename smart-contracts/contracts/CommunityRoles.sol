@@ -42,11 +42,11 @@ contract CommunityRoles is
     _;
   }
 
-  function owner() public view returns (address) {
+  function owner() external view returns (address) {
     return _owner;
   }
 
-  function transferOwnership(address newOwner) public {
+  function transferOwnership(address newOwner) external {
     grantRole(OWNER_ROLE, newOwner);
     addAdmin(newOwner);
     addModerator(newOwner);
@@ -60,7 +60,7 @@ contract CommunityRoles is
     _admins[admin] = true;
   }
 
-  function removeAdmin(address admin) public {
+  function removeAdmin(address admin) external {
     if (msg.sender == admin) {
       renounceRole(ADMIN_ROLE, admin);
     } else {
@@ -76,7 +76,7 @@ contract CommunityRoles is
     _moderators[moderator] = true;
   }
 
-  function removeModerator(address moderator) public {
+  function removeModerator(address moderator) external {
     if (msg.sender == moderator) {
       renounceRole(MODERATOR_ROLE, moderator);
     } else {
@@ -86,7 +86,7 @@ contract CommunityRoles is
     _moderators[moderator] = false;
   }
 
-  function addMember(address user) public {
+  function addMember(address user) external {
     if (isOpen) {
       _members[user] = true;
     } else {
@@ -96,8 +96,12 @@ contract CommunityRoles is
     }
   }
 
-  function removeMember(address user) public {
+  function removeMember(address user) external {
     require(hasRole(MODERATOR_ROLE, _owner) || _owner == user, "Caller is not a moderator or itself");
     _members[user] = false;
+  }
+
+  function canAppend(address addr) external view returns (bool) {
+    return isOpen || _members[addr];
   }
 }

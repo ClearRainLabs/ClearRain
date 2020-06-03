@@ -8,7 +8,7 @@ module.exports = {
 
     development: {
       host: '127.0.0.1',
-      port: 8545,
+      port: 7545,
       network_id: 5777,
       websockets: true,
       gas: 6700000
@@ -17,28 +17,38 @@ module.exports = {
     ropsten: {
       provider: () => new HDWalletProvider(MNEMONIC, `https://ropsten.infura.io/v3/${INFURA_ID}`),
       network_id: 3,
-      gas: 5500000, // Ropsten has a lower block limit than mainnet
+      gas: 5500000,
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true
-    }
-  },
+    },
 
-  mocha: {
-    // timeout: 100000
+    rinkeby: {
+      provider: () => new HDWalletProvider(MNEMONIC, `https://rinkeby.infura.io/v3/${INFURA_ID}`),
+      network_id: 4,
+      gas: 6400000,
+      gasPrice: 5000000000 // 5GWEI
+    }
   },
 
   compilers: {
     solc: {
-      version: '0.6.7'
-      // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-      // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      //  optimizer: {
-      //    enabled: false,
-      //    runs: 200
-      //  },
-      //  evmVersion: "byzantium"
-      // }
+      version: '0.6.7',
+      settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        }
+      }
+    }
+  },
+  mocha: {
+    reporter: 'eth-gas-reporter',
+    useColors: true,
+    reporterOptions: {
+      currency: 'USD',
+      excludeContracts: ['Migrations'],
+      gasPrice: 5
     }
   }
 }

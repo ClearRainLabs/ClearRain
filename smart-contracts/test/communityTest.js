@@ -18,7 +18,7 @@ contract('RainCommunity', async accounts => {
   })
 
   it('Test the initial contract', async () => {
-    await checkCommunityRoles(rainCommunity, accounts, 'Rain', 'RAI', accounts[0])
+    await checkCommunityRoles(rainCommunity, accounts, 'Rain', 'RAI', true, accounts[0])
   })
 
   it('Test parent community of initial contract', async () => {
@@ -41,10 +41,11 @@ contract('RainCommunity', async accounts => {
       const salt = testSalts[i]
       const name = `New-${i}`
       const symbol = `N${i}`
+      const isOpen = Boolean(i)
 
       describe(`Salt: ${salt}`, () => {
         before(async () => {
-          const tx = await rainCommunity.createCommunity(name, symbol, salt, { from: owner })
+          const tx = await rainCommunity.createCommunity(name, symbol, isOpen, salt, { from: owner })
 
           const evt = tx.logs.find(v => v.event === 'NewCommunity')
 
@@ -65,7 +66,7 @@ contract('RainCommunity', async accounts => {
         })
 
         it('Check roles of community', async () => {
-          await checkCommunityRoles(rainCommunity, accounts, name, symbol, owner)
+          await checkCommunityRoles(rainCommunity, accounts, name, symbol, isOpen, owner)
         })
 
         it('Matches the JS calculated address', async () => {
@@ -79,13 +80,13 @@ contract('RainCommunity', async accounts => {
 
         it('Should fail if a salt is re-used', async () => {
           await expectRevert.unspecified(
-            prevCommunity.createCommunity(name, symbol, salt, { from: owner }),
+            prevCommunity.createCommunity(name, symbol, isOpen, salt, { from: owner }),
             'Re-used salt should fail'
           )
         })
 
         it('Can use the same salt if the account is different', async () => {
-          const tx = await prevCommunity.createCommunity(name, symbol, salt, { from: accounts[9] })
+          const tx = await prevCommunity.createCommunity(name, symbol, isOpen, salt, { from: accounts[9] })
           const evt = tx.logs.find(v => v.event === 'NewCommunity')
 
           const diffAddr = evt.args.newCommunityAddress

@@ -1,4 +1,4 @@
-async function checkCommunityRoles (contract, accounts, initName, initSymbol, initOwner) {
+async function checkCommunityRoles (contract, accounts, initName, initSymbol, initIsOpen, initOwner) {
   this.contract = contract
   it('Get name and symbol', async () => {
     const name = await this.contract.name.call()
@@ -78,6 +78,19 @@ async function checkCommunityRoles (contract, accounts, initName, initSymbol, in
     await this.contract.transferOwnership(accounts[2], { from: accounts[1] })
     newOwner = await this.contract.owner.call()
     assert.equal(newOwner, accounts[2], 'Owner should be updated again')
+  })
+
+  it('Check is open and canappend', async () => {
+    if (initIsOpen) {
+      const canAppend = await this.contract.canAppend(accounts[6])
+      assert.equal(canAppend, true, 'Can append should be true for open contract')
+    } else {
+      let canAppend = await this.contract.canAppend(accounts[6])
+      assert.equal(canAppend, false, 'Can append should be false for closed contract')
+
+      canAppend = await this.contract.canAppend(initOwner)
+      assert.equal(canAppend, true, 'Member should be able to append in closed contract')
+    }
   })
 }
 

@@ -14,7 +14,7 @@ contract RainCommunity is
     bool deployed;
   }
 
-  mapping(address => Community) public childCommunities; // this needs to be an array to access communities in graph??
+  mapping(address => Community) public childCommunities;
 
   string private _name;
   string private _symbol;
@@ -29,10 +29,10 @@ contract RainCommunity is
   function initialize(
     address _parentCommunity,
     address _owner,
-    string memory name,
-    string memory symbol,
+    string calldata name,
+    string calldata symbol,
     bool _isOpen
-  ) public
+  ) external
     initializer
   {
     _initializeComunityRoles(_owner, _isOpen);
@@ -44,11 +44,11 @@ contract RainCommunity is
   function initialize(
     address _parentCommunity,
     address _owner,
-    string memory name,
-    string memory symbol,
+    string calldata name,
+    string calldata symbol,
     address payable _defaultTemplate,
     bool _isOpen
-  ) public
+  ) external
     initializer
   {
     // TODO: should check to make sure default template is initialized
@@ -64,14 +64,14 @@ contract RainCommunity is
   /**
    * @dev Returns the name of the community.
    */
-  function name() public view returns (string memory) {
+  function name() external view returns (string memory) {
     return _name;
   }
 
   /**
    * @dev Returns the symbol of the community.
    */
-  function symbol() public view returns (string memory) {
+  function symbol() external view returns (string memory) {
     return _symbol;
   }
 
@@ -90,17 +90,19 @@ contract RainCommunity is
   }
 
   function createCommunity(
-    string memory _newName,
-    string memory _newSymbol,
+    string calldata _newName,
+    string calldata _newSymbol,
+    bool _isOpen,
     bytes12 _salt
-  ) public
+  ) external
   {
-    _createCommunity(_newName, _newSymbol, _salt);
+    _createCommunity(_newName, _newSymbol, _isOpen, _salt);
   }
 
   function _createCommunity(
     string memory _newName,
     string memory _newSymbol,
+    bool _isOpen,
     bytes12 _salt
   ) private
   {
@@ -114,8 +116,7 @@ contract RainCommunity is
     }
 
     address payable newCommunity = address(uint160(address(communityTemplate).createClone2(salt)));
-    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol, communityTemplate, true);
-
+    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol, communityTemplate, _isOpen);
     childCommunities[newCommunity] = Community({ deployed: true });
     emit NewCommunity(msg.sender, newCommunity);
   }
