@@ -14,7 +14,7 @@ cd smart-contracts
 yarn install
 ```
 
-Run a local blockchain at port 8485. We recommend [ganache](https://www.trufflesuite.com/ganache).
+Run a local blockchain at port specified in truffle config. We recommend [ganache](https://www.trufflesuite.com/ganache).
 
 Useful commands
 ```bash
