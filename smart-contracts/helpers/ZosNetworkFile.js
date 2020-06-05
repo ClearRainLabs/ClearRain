@@ -2,13 +2,17 @@ const Zos = require('@openzeppelin/cli')
 
 module.exports = async function getNetworkFile (web3) {
   const _id = await web3.eth.net.getId()
+  console.log(web3.eth.net, 'THE NET')
   let network
   switch (_id) {
-    case '1':
+    case 1:
       network = 'mainnet'
       break
-    case '3':
+    case 3:
       network = 'ropsten'
+      break
+    case 4:
+      network = 'rinkeby'
       break
     default:
       network = `dev-${_id}`

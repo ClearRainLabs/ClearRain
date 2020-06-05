@@ -1,0 +1,25 @@
+{
+  "name": "community-js",
+  "version": "0.1.0",
+  "description": "Javascript library for interacting with rain communities",
+  "license": "MIT",
+  "scripts": {
+    "update-contract": "node getLocalContractData.js",
+    "build:dev": "webpack --mode=development --config webpack.dev.config.js"
+  },
+  "dependencies": {
+    "ethers": "^4.0.47"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

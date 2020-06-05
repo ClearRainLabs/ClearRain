@@ -1,0 +1,306 @@
+{
+  "contracts": {
+    "RainCommunity": {
+      "address": "0x23E415006C3929301A147105cCf301C95fc1cf11",
+      "constructorCode": "608060405234801561001057600080fd5b50611e95806100206000396000f3fe",
+      "bodyBytecodeHash": "2d090dfcb9ae15654dd30bfe6822e56a1c4d18dfe207720995aa898ac19a9119",
+      "localBytecodeHash": "e099e0da14a1aad0231e6dc49d7645543166111f5974b87311e1dc9f7f5cdbf3",
+      "deployedBytecodeHash": "e099e0da14a1aad0231e6dc49d7645543166111f5974b87311e1dc9f7f5cdbf3",
+      "types": {
+        "t_bool": {
+          "id": "t_bool",
+          "kind": "elementary",
+          "label": "bool"
+        },
+        "t_uint256": {
+          "id": "t_uint256",
+          "kind": "elementary",
+          "label": "uint256"
+        },
+        "t_array:50<t_uint256>": {
+          "id": "t_array:50<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "50",
+          "kind": "array",
+          "label": "uint256[50]"
+        },
+        "t_struct<AccessControlUpgradeSafe.RoleData>": {
+          "id": "t_struct<AccessControlUpgradeSafe.RoleData>",
+          "kind": "struct",
+          "label": "AccessControlUpgradeSafe.RoleData",
+          "members": [
+            {
+              "label": "members",
+              "astId": 766,
+              "type": "t_struct<EnumerableSet.AddressSet>",
+              "src": "1655:32:5"
+            },
+            {
+              "label": "adminRole",
+              "astId": 768,
+              "type": "t_bytes32",
+              "src": "1697:17:5"
+            }
+          ]
+        },
+        "t_struct<EnumerableSet.AddressSet>": {
+          "id": "t_struct<EnumerableSet.AddressSet>",
+          "kind": "struct",
+          "label": "EnumerableSet.AddressSet",
+          "members": [
+            {
+              "label": "_inner",
+              "astId": 1273,
+              "type": "t_struct<EnumerableSet.Set>",
+              "src": "4644:10:7"
+            }
+          ]
+        },
+        "t_struct<EnumerableSet.Set>": {
+          "id": "t_struct<EnumerableSet.Set>",
+          "kind": "struct",
+          "label": "EnumerableSet.Set",
+          "members": [
+            {
+              "label": "_values",
+              "astId": 1089,
+              "type": "t_array:dyn<t_bytes32>",
+              "src": "1213:17:7"
+            },
+            {
+              "label": "_indexes",
+              "astId": 1093,
+              "type": "t_mapping<t_uint256>",
+              "src": "1364:37:7"
+            }
+          ]
+        },
+        "t_bytes32": {
+          "id": "t_bytes32",
+          "kind": "elementary",
+          "label": "bytes32"
+        },
+        "t_array:dyn<t_bytes32>": {
+          "id": "t_array:dyn<t_bytes32>",
+          "valueType": "t_bytes32",
+          "length": "dyn",
+          "kind": "array",
+          "label": "bytes32[]"
+        },
+        "t_mapping<t_uint256>": {
+          "id": "t_mapping<t_uint256>",
+          "valueType": "t_uint256",
+          "label": "mapping(key => uint256)",
+          "kind": "mapping"
+        },
+        "t_mapping<t_struct<AccessControlUpgradeSafe.RoleData>>": {
+          "id": "t_mapping<t_struct<AccessControlUpgradeSafe.RoleData>>",
+          "valueType": "t_struct<AccessControlUpgradeSafe.RoleData>",
+          "label": "mapping(key => AccessControlUpgradeSafe.RoleData)",
+          "kind": "mapping"
+        },
+        "t_array:49<t_uint256>": {
+          "id": "t_array:49<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "49",
+          "kind": "array",
+          "label": "uint256[49]"
+        },
+        "t_address": {
+          "id": "t_address",
+          "kind": "elementary",
+          "label": "address"
+        },
+        "t_mapping<t_bool>": {
+          "id": "t_mapping<t_bool>",
+          "valueType": "t_bool",
+          "label": "mapping(key => bool)",
+          "kind": "mapping"
+        },
+        "t_struct<RainCommunity.Community>": {
+          "id": "t_struct<RainCommunity.Community>",
+          "kind": "struct",
+          "label": "RainCommunity.Community",
+          "members": [
+            {
+              "label": "deployed",
+              "astId": 379,
+              "type": "t_bool",
+              "src": "324:13:2"
+            }
+          ]
+        },
+        "t_mapping<t_struct<RainCommunity.Community>>": {
+          "id": "t_mapping<t_struct<RainCommunity.Community>>",
+          "valueType": "t_struct<RainCommunity.Community>",
+          "label": "mapping(key => RainCommunity.Community)",
+          "kind": "mapping"
+        },
+        "t_string": {
+          "id": "t_string",
+          "kind": "elementary",
+          "label": "string"
+        },
+        "t_address_payable": {
+          "id": "t_address_payable",
+          "kind": "elementary",
+          "label": "address payable"
+        }
+      },
+      "storage": [
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol",
+          "label": "initialized",
+          "astId": 661,
+          "type": "t_bool",
+          "src": "757:24:4"
+        },
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol",
+          "label": "initializing",
+          "astId": 663,
+          "type": "t_bool",
+          "src": "876:25:4"
+        },
+        {
+          "contract": "Initializable",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol",
+          "label": "______gap",
+          "astId": 728,
+          "type": "t_array:50<t_uint256>",
+          "src": "1982:29:4"
+        },
+        {
+          "contract": "ContextUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/GSN/Context.sol",
+          "label": "__gap",
+          "astId": 655,
+          "type": "t_array:50<t_uint256>",
+          "src": "1277:25:3"
+        },
+        {
+          "contract": "AccessControlUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/access/AccessControl.sol",
+          "label": "_roles",
+          "astId": 773,
+          "type": "t_mapping<t_struct<AccessControlUpgradeSafe.RoleData>>",
+          "src": "1727:44:5"
+        },
+        {
+          "contract": "AccessControlUpgradeSafe",
+          "path": "@openzeppelin/contracts-ethereum-package/contracts/access/AccessControl.sol",
+          "label": "__gap",
+          "astId": 1018,
+          "type": "t_array:49<t_uint256>",
+          "src": "6927:25:5"
+        },
+        {
+          "contract": "CommunityRoles",
+          "path": "contracts/CommunityRoles.sol",
+          "label": "_owner",
+          "astId": 23,
+          "type": "t_address",
+          "src": "388:22:0"
+        },
+        {
+          "contract": "CommunityRoles",
+          "path": "contracts/CommunityRoles.sol",
+          "label": "_admins",
+          "astId": 27,
+          "type": "t_mapping<t_bool>",
+          "src": "414:40:0"
+        },
+        {
+          "contract": "CommunityRoles",
+          "path": "contracts/CommunityRoles.sol",
+          "label": "_moderators",
+          "astId": 31,
+          "type": "t_mapping<t_bool>",
+          "src": "458:44:0"
+        },
+        {
+          "contract": "CommunityRoles",
+          "path": "contracts/CommunityRoles.sol",
+          "label": "_members",
+          "astId": 35,
+          "type": "t_mapping<t_bool>",
+          "src": "506:41:0"
+        },
+        {
+          "contract": "CommunityRoles",
+          "path": "contracts/CommunityRoles.sol",
+          "label": "isOpen",
+          "astId": 37,
+          "type": "t_bool",
+          "src": "552:18:0"
+        },
+        {
+          "contract": "RainCommunity",
+          "path": "contracts/RainCommunity.sol",
+          "label": "childCommunities",
+          "astId": 384,
+          "type": "t_mapping<t_struct<RainCommunity.Community>>",
+          "src": "346:53:2"
+        },
+        {
+          "contract": "RainCommunity",
+          "path": "contracts/RainCommunity.sol",
+          "label": "_name",
+          "astId": 386,
+          "type": "t_string",
+          "src": "404:20:2"
+        },
+        {
+          "contract": "RainCommunity",
+          "path": "contracts/RainCommunity.sol",
+          "label": "_symbol",
+          "astId": 388,
+          "type": "t_string",
+          "src": "428:22:2"
+        },
+        {
+          "contract": "RainCommunity",
+          "path": "contracts/RainCommunity.sol",
+          "label": "parentCommunity",
+          "astId": 390,
+          "type": "t_address",
+          "src": "455:30:2"
+        },
+        {
+          "contract": "RainCommunity",
+          "path": "contracts/RainCommunity.sol",
+          "label": "communityTemplate",
+          "astId": 392,
+          "type": "t_address_payable",
+          "src": "490:40:2"
+        }
+      ],
+      "warnings": {
+        "hasConstructor": false,
+        "hasSelfDestruct": false,
+        "hasDelegateCall": false,
+        "hasInitialValuesInDeclarations": false,
+        "uninitializedBaseContracts": []
+      }
+    }
+  },
+  "solidityLibs": {},
+  "proxies": {
+    "ClearRain/RainCommunity": [
+      {
+        "address": "0x230E84Ef38e98261e9BA479Ddb31bee1F2DEC2dE",
+        "version": "0.1.0",
+        "implementation": "0x23E415006C3929301A147105cCf301C95fc1cf11",
+        "admin": "0x9A5eC449501E4Aff4d6FA1F3293a652C0bE61ccD",
+        "kind": "Upgradeable"
+      }
+    ]
+  },
+  "manifestVersion": "2.2",
+  "version": "0.1.0",
+  "proxyAdmin": {
+    "address": "0x9A5eC449501E4Aff4d6FA1F3293a652C0bE61ccD"
+  }
+}

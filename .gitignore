@@ -1,8 +1,12 @@
 **/node_modules
 **/build
 
+**/localContractData.json
+**/yarn-error.log
+**/dist
+
 # OpenZeppelin
 **/.openzeppelin/dev-*.json
 **/.openzeppelin/.session
 
-.env
+**/.env
