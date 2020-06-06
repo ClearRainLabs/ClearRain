@@ -1,6 +1,8 @@
 # Clear Rain
 Self-governed Online Communities
 
+We are keeping track of tasks in Github projects.
+
 ### About the repo
 ./smart-contracts
   - The smart contracts
