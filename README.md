@@ -4,7 +4,7 @@ Self-governed Online Communities
 Get started:
 ```bash
 # You must use ssh to correctly clone the submodule
-git clone --recurse-submodules git@github.com:samhatem/clear-rain.git
+git clone --recurse-submodules git@github.com:ClearRainLabs/ClearRain.git
 yarn install
 ```
 
