@@ -18,6 +18,9 @@ contract CommunityRoles is
 
   bool public isOpen;
 
+  event MemberAdded(address indexed account, address indexed sender);
+  event MemberRemoved(address indexed account, address indexed sender);
+
   function _initializeComunityRoles(address _initOwner, bool _isOpen) internal {
     __AccessControl_init();
 
@@ -89,16 +92,19 @@ contract CommunityRoles is
   function addMember(address user) external {
     if (isOpen) {
       _members[user] = true;
+      emit MemberAdded(user, msg.sender);
     } else {
       require(hasRole(MODERATOR_ROLE, msg.sender) || hasRole(ADMIN_ROLE, msg.sender),
         'Sender must be admin or moderator to add a member');
       _members[user] = true;
+      emit MemberAdded(user, msg.sender);
     }
   }
 
   function removeMember(address user) external {
     require(hasRole(MODERATOR_ROLE, _owner) || _owner == user, "Caller is not a moderator or itself");
     _members[user] = false;
+    emit MemberRemoved(user, msg.sender);
   }
 
   function canAppend(address addr) external view returns (bool) {
