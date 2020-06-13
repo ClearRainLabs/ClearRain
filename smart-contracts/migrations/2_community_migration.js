@@ -1,5 +1,4 @@
 const { scripts, ConfigManager } = require('@openzeppelin/cli')
-const { constants } = require('hardlydifficult-eth')
 
 const { add, push, create } = scripts
 
@@ -18,7 +17,7 @@ async function deploy (options, accounts) {
       {
         contractAlias: 'RainCommunity',
         methodName: 'initialize',
-        methodArgs: [constants.ZERO_ADDRESS, owner, 'Rain', 'RAI', true]
+        methodArgs: [owner, 'Rain', 'RAI', true]
       },
       options
     )

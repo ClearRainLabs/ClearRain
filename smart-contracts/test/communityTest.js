@@ -21,11 +21,6 @@ contract('RainCommunity', async accounts => {
     await checkCommunityRoles(rainCommunity, accounts, 'Rain', 'RAI', true, accounts[0])
   })
 
-  it('Test parent community of initial contract', async () => {
-    const parent = await rainCommunity.parentCommunity()
-    assert.equal(parent, constants.ZERO_ADDRESS, 'Parent community should be zero address')
-  })
-
   describe('Deploy with Clone 2 with various salts', () => {
     const testSalts = [
       '0x000000000000000000000000',
@@ -58,11 +53,6 @@ contract('RainCommunity', async accounts => {
         it('Check community template', async () => {
           const taddr = await rainCommunity.communityTemplate()
           assert.equal(taddr, templateAddress, 'Template address of created community incorrect')
-        })
-
-        it('Check parent community', async () => {
-          const parent = await rainCommunity.parentCommunity()
-          assert.equal(parent, prevCommunity.address, 'Parent community is incorrect')
         })
 
         it('Check roles of community', async () => {

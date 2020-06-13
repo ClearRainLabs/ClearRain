@@ -1,21 +1,34 @@
 const ethers = require('ethers')
-const { contractAbi, contractAddress } = require('../localContractData.json')
+const { contractAbi, contractAddress } = require('../contractData.json')
 
 const utf8ToHex = (str) => ethers.utils.hexlify(str.length ? ethers.utils.toUtf8Bytes(str) : 0)
 const keccak256 = ethers.utils.keccak256
+
+const NETWORKS = {
+  5777: 'dev-5777',
+  3: 'ropsten',
+  4: 'rinkeby'
+}
 
 class RainService {
   // ethers jsonRpcProvider
   constructor (web3) {
     this.provider = new ethers.providers.Web3Provider(web3)
-    const factoryNoSigner = new ethers.Contract(contractAddress, contractAbi, this.provider)
+  }
+
+  async setNetwork () {
+    const currentNetwork = await this.provider.getNetwork()
+    const networkName = NETWORKS[currentNetwork.chainId]
+    const factoryNoSigner = new ethers.Contract(contractAddress[networkName], contractAbi, this.provider)
     const signer = this.provider.getSigner()
     this.factory = factoryNoSigner.connect(signer)
+    this.isNetworkSet = true
   }
 
   getJsonRpcProvider () { return this.provider }
 
   async createCommunityContract (name, symbol, isOpen) {
+    this._requireNetworkSet()
     if (!this.templateAddress) this.templateAddress = await this.factory.communityTemplate.call()
     if (!this.signerAddress) this.signerAddress = await this.provider.getSigner().getAddress()
 
@@ -58,6 +71,10 @@ class RainService {
 
   getAbi () {
     return contractAbi
+  }
+
+  _requireNetworkSet () {
+    if (!this.isNetworkSet) throw new Error('You must call setNetwork before calling this function')
   }
 }
 

@@ -4,7 +4,7 @@
   "description": "Javascript library for interacting with rain communities",
   "license": "MIT",
   "scripts": {
-    "update-contract": "node getLocalContractData.js",
+    "update-contract": "node getContractData.js",
     "build:dev": "webpack --mode=development --config webpack.dev.config.js"
   },
   "dependencies": {

@@ -10,24 +10,20 @@ contract RainCommunity is
 {
   using Clone2Factory for address;
 
-  struct Community {
-    bool deployed;
-  }
-
-  mapping(address => Community) public childCommunities;
+  mapping(address => bool) public children;
 
   string private _name;
   string private _symbol;
-
-  address public parentCommunity;
 
   address payable public communityTemplate;
 
   event NewCommunity(address indexed creator, address indexed newCommunityAddress);
   event SetCommunityTemplate(address communityTemplate);
 
+  event ChildAdded(address indexed child, address indexed sender);
+  event ChildRemoved(address indexed child, address indexed sender);
+
   function initialize(
-    address _parentCommunity,
     address _owner,
     string calldata name,
     string calldata symbol,
@@ -38,11 +34,9 @@ contract RainCommunity is
     _initializeComunityRoles(_owner, _isOpen);
     _name = name;
     _symbol = symbol;
-    parentCommunity = _parentCommunity;
   }
 
   function initialize(
-    address _parentCommunity,
     address _owner,
     string calldata name,
     string calldata symbol,
@@ -56,7 +50,6 @@ contract RainCommunity is
     _initializeComunityRoles(_owner, _isOpen);
     _name = name;
     _symbol = symbol;
-    parentCommunity = _parentCommunity;
     communityTemplate = _defaultTemplate;
     emit SetCommunityTemplate(_defaultTemplate);
   }
@@ -81,7 +74,7 @@ contract RainCommunity is
     onlyOwner()
   {
     RainCommunity(_communityTemplate).initialize(
-      address(this), address(0), "", "", true
+      address(0), "", "", true
     );
 
     communityTemplate = _communityTemplate;
@@ -116,8 +109,8 @@ contract RainCommunity is
     }
 
     address payable newCommunity = address(uint160(address(communityTemplate).createClone2(salt)));
-    RainCommunity(newCommunity).initialize(address(this), msg.sender, _newName, _newSymbol, communityTemplate, _isOpen);
-    childCommunities[newCommunity] = Community({ deployed: true });
+    RainCommunity(newCommunity).initialize(msg.sender, _newName, _newSymbol, communityTemplate, _isOpen);
+    children[newCommunity] = true;
     emit NewCommunity(msg.sender, newCommunity);
   }
 }
